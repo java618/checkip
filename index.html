@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<h1>Hello </h1>
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password"><br><br>
+  <input type="submit" id="logIn" value="Log in">
+  <input type="button" id="signIn" value="Sign in">
+
+  <script type="text/javascript">
+
+  $(document).on('click', '#signIn', function(){
+    window.location.pathname = "/ipRange/registration.html"
+  })
+
+  $(document).on('click', '#logIn', function(){
+    $( document ).ready(function() {
+      let endpoint = 'https://api.linkpreview.net'
+
+      $( ".content a" ).each(function( index, element ) {
+
+        $.ajax({
+          url: endpoint + "?key=" + apiKey + " &q=" + $( this ).text(),
+          contentType: "application/json",
+          dataType: 'json',
+          success: function(result){
+            console.log(result);
+          }
+        })
+      });
+    });
+  })
+</script>
+
+  </body>
+</html>

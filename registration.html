@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<h1>Hello </h1>
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password"><br><br>
+  <input type="button" id="signIn" value="Sign in"><br><br>
+  <p>If you have account return to Login page</p>
+  <input type="button" id="logIn" value="Log in"><br>
+  <p id="demo"></p>
+
+<script type="text/javascript">
+
+  $(document).on('click', '#logIn', function(){
+    window.location.pathname = "/ipRange/index.html"
+  })
+
+  $(document).on('click', 'signIn', function(){
+    $.post("http://localhost:8080/registration",
+            {
+              name: document.getElementById('name').value,
+              city: document.getElementById('password').value
+            },
+            function(data, status){
+              alert("Data: " + data + "\nStatus: " + status);
+            });
+  })
+
+</script>
+  </body>
+</html>
