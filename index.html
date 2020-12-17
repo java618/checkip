@@ -12,7 +12,8 @@
   <label for="password">Password:</label><br>
   <input type="password" id="password" name="password"><br><br>
   <input type="submit" id="logIn" value="Log in">
-  <input type="button" id="signIn" value="Sign in">
+  <input type="button" id="signIn" value="Sign in"><br><br>
+  <p id="demo"></p>
 
   <script type="text/javascript">
 
@@ -21,22 +22,27 @@
   })
 
   $(document).on('click', '#logIn', function(){
-    $( document ).ready(function() {
-      let endpoint = 'https://api.linkpreview.net'
-
-      $( ".content a" ).each(function( index, element ) {
-
-        $.ajax({
-          url: endpoint + "?key=" + apiKey + " &q=" + $( this ).text(),
-          contentType: "application/json",
-          dataType: 'json',
-          success: function(result){
-            console.log(result);
-          }
-        })
-      });
-    });
+    $.ajax({
+      url: "http://localhost:8080/login",
+      type: "POST",
+      data: JSON.stringify({
+        "name": document.getElementById('name').value,
+        "password": document.getElementById('password').value
+      }),
+      contentType: "application/json",
+      // dataType: "json",
+      success: function(data){
+        if (data === true)
+          window.location.pathname = "/ipRange/checkIp.html"
+        else
+          $('#demo').text( "Username or password is not correct" );
+      },
+      error: function( data, textStatus, errorThrown ){
+        // console.log( data );
+      }
+    })
   })
+
 </script>
 
   </body>

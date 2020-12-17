@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="utf-8">
     <title></title>
   </head>
@@ -8,6 +9,34 @@
     <h1>Check ip</h1><br>
     <label for="ipAddr">Ip Address</label><br>
     <input type="text" id="ipAddr" name="ipAddr"><br><br>
-    <input type="submit" id="search" value="Search">
+    <input type="submit" id="search" value="Search"><br><br>
+    <p id="ipLowerRange"></p><br>
+    <p id="ipUpperRange"></p>
+  <script>
+
+    $(document).on('click', '#search', function(){
+      let address = document.getElementById('ipAddr').value;
+    $.ajax({
+
+    url: "http://localhost:8080/ipRange/" + address,
+    type: "GET",
+    // data: data,
+    contentType: "application/json",
+    // dataType: "json",
+    success: function(data){
+
+    const lowerIp = data.lowerIp;
+    const upperIp = data.upperIp;
+
+      $('#ipLowerRange').text( lowerIp );
+      $('#ipUpperRange').text( upperIp );
+
+    },
+    error: function( data, textStatus, errorThrown ){
+      window.location.pathname = "/ipRange/addIpRange.html"
+    }
+    })
+    })
+  </script>
   </body>
 </html>
